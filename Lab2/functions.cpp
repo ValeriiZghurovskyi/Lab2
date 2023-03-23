@@ -113,7 +113,7 @@ void append_file(string filename) {
 
 void read_data(string filename) {
 
-	ifstream fin(filename, ios::binary);
+	ifstream fin(filename, ios::binary | ios::in);
 	if (!fin.is_open()) {
 		cout << "Something went wrong!!!" << endl;
 		exit;
@@ -151,7 +151,7 @@ void read_data(string filename) {
 void split_workers_to_files(string filename) {
 
 
-	ifstream fin(filename, ios::binary);
+	ifstream fin(filename, ios::binary | ios::in);
 	if (!fin.is_open()) {
 		cout << "Something went wrong!!!" << endl;
 		exit;
@@ -172,13 +172,13 @@ void split_workers_to_files(string filename) {
 
 	fin.close();
 
-	ofstream fout_less40("workers_less40.bin", ios::binary);
+	ofstream fout_less40("workers_less40.bin", ios::binary | ios::out);
 	if (!fout_less40.is_open()) {
 		cout << "Something went wrong!!!" << endl;
 		exit;
 	}
 
-	ofstream fout_more40("workers_more40.bin", ios::binary);
+	ofstream fout_more40("workers_more40.bin", ios::binary | ios::out);
 	if (!fout_more40.is_open()) {
 		cout << "Something went wrong!!!" << endl;
 		exit;
