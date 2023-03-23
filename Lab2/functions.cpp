@@ -1,4 +1,6 @@
 #include "functions.h"
+
+
 struct worker
 {
 	string name;
@@ -76,28 +78,28 @@ void append_file(string filename) {
 	}
 
 	char ch = 'y';
-	worker worker;
+	worker workers;
 
 	while (ch == 'y' || ch == 'Y') {
 		cout << "\n\n";
 		cout << "Enter worker name (in format: \"Yaroshenko D.I.\" ): ";
 		cin.ignore();
-		getline(cin, worker.name);
+		getline(cin, workers.name);
 
 		cout << "Enter worker birthday (in format: 01.01.2023): ";
-		scanf_s("%d.%d.%d", &worker.day, &worker.month, &worker.year);
+		scanf_s("%d.%d.%d", &workers.day, &workers.month, &workers.year);
 
 		cout << "Enter worker table number (in format: 8938452): ";
-		cin >> worker.number;
+		cin >> workers.number;
 
 		cout << "Enter worker sex (in format: m/w): ";
-		cin >> worker.sex;
+		cin >> workers.sex;
 
-		if (!check_date(worker.day, worker.month, worker.year, 20, 60)) {
+		if (!check_date(workers.day, workers.month, workers.year, 20, 60)) {
 			cout << "Sorry, but this age is incorrect\nWe can`t add this(" << endl;
 		}
 		else {
-			fout.write((char*)&worker, sizeof(worker));
+			fout.write((char*)&workers, sizeof(worker));
 		}
 
 		cout << "If you want to add more workers print \"Y\" else print \"N\": ";
@@ -170,13 +172,13 @@ void split_workers_to_files(string filename) {
 
 	fin.close();
 
-	ofstream fout_less40("workers_less40", ios::binary | ios::out);
+	ofstream fout_less40("workers_less40.bin", ios::binary);
 	if (!fout_less40.is_open()) {
 		cout << "Something went wrong!!!" << endl;
 		exit;
 	}
 
-	ofstream fout_more40("workers_more40", ios::binary | ios::out);
+	ofstream fout_more40("workers_more40.bin", ios::binary);
 	if (!fout_more40.is_open()) {
 		cout << "Something went wrong!!!" << endl;
 		exit;
@@ -191,7 +193,7 @@ void split_workers_to_files(string filename) {
 		}
 	}
 
-	cout << "Files \"workers_less40\" and \"workers_more40\" was successfully created!" << endl;
+	cout << "Files \"workers_less40.bin\" and \"workers_more40.bin\" was successfully created!" << endl;
 
 	fin.close();
 	fout_less40.close();
@@ -211,11 +213,11 @@ void choose_file_to_read() {
 		switch (choise)
 		{
 		case 1:
-			read_data("workers_less40");
+			read_data("workers_less40.bin");
 			break;
 
 		case 2:
-			read_data("workers_more40");
+			read_data("workers_more40.bin");
 			break;
 		case 0:
 			break;

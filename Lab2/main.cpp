@@ -1,6 +1,5 @@
 #include "functions.h"
 
-
 int main() {
 
 	string start_file = get_filename();

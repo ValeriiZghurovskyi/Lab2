@@ -7,8 +7,6 @@
 
 using namespace std;
 
-
-
 struct worker;
 
 string get_filename(); // Функція для введення імені файлу
