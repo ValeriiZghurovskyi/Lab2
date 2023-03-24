@@ -1,7 +1,7 @@
 #include "functions.h"
 
 int main() {
-
+	cout << sizeof(size_t);
 	string start_file = get_filename();
 	append_file(start_file);
 	read_data(start_file);

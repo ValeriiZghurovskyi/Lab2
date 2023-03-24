@@ -3,7 +3,8 @@
 
 struct worker
 {
-	string name;
+	char name[256];
+	//string name;
 	string number;
 	string sex;
 	int day;
@@ -70,6 +71,7 @@ bool check_date(int day, int month, int year, int min_age, int max_age) {
 
 }
 
+
 void append_file(string filename) {
 	ofstream fout(filename, ios::binary | ios::app);
 	if (!fout.is_open()) {
@@ -78,28 +80,32 @@ void append_file(string filename) {
 	}
 
 	char ch = 'y';
-	worker workers;
+	worker wrk;
 
 	while (ch == 'y' || ch == 'Y') {
 		cout << "\n\n";
 		cout << "Enter worker name (in format: \"Yaroshenko D.I.\" ): ";
 		cin.ignore();
-		getline(cin, workers.name);
+		cin.getline(wrk.name, 255);
+		//getline(cin, wrk.name);
+		
+
 
 		cout << "Enter worker birthday (in format: 01.01.2023): ";
-		scanf_s("%d.%d.%d", &workers.day, &workers.month, &workers.year);
+		scanf_s("%d.%d.%d", &wrk.day, &wrk.month, &wrk.year);
 
 		cout << "Enter worker table number (in format: 8938452): ";
-		cin >> workers.number;
+		cin >> wrk.number;
 
 		cout << "Enter worker sex (in format: m/w): ";
-		cin >> workers.sex;
+		cin >> wrk.sex;
 
-		if (!check_date(workers.day, workers.month, workers.year, 20, 60)) {
+		if (!check_date(wrk.day, wrk.month, wrk.year, 20, 60)) {
 			cout << "Sorry, but this age is incorrect\nWe can`t add this(" << endl;
 		}
 		else {
-			fout.write((char*)&workers, sizeof(worker));
+
+			fout.write((char*)&wrk, sizeof(worker));
 		}
 
 		cout << "If you want to add more workers print \"Y\" else print \"N\": ";
@@ -113,7 +119,7 @@ void append_file(string filename) {
 
 void read_data(string filename) {
 
-	ifstream fin(filename, ios::binary | ios::in);
+	ifstream fin(filename, ios::binary);
 	if (!fin.is_open()) {
 		cout << "Something went wrong!!!" << endl;
 		exit;
@@ -151,7 +157,7 @@ void read_data(string filename) {
 void split_workers_to_files(string filename) {
 
 
-	ifstream fin(filename, ios::binary | ios::in);
+	ifstream fin(filename, ios::binary);
 	if (!fin.is_open()) {
 		cout << "Something went wrong!!!" << endl;
 		exit;
@@ -172,13 +178,13 @@ void split_workers_to_files(string filename) {
 
 	fin.close();
 
-	ofstream fout_less40("workers_less40.bin", ios::binary | ios::out);
+	ofstream fout_less40("workers_less40.bin", ios::binary);
 	if (!fout_less40.is_open()) {
 		cout << "Something went wrong!!!" << endl;
 		exit;
 	}
 
-	ofstream fout_more40("workers_more40.bin", ios::binary | ios::out);
+	ofstream fout_more40("workers_more40.bin", ios::binary);
 	if (!fout_more40.is_open()) {
 		cout << "Something went wrong!!!" << endl;
 		exit;
